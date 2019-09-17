@@ -10,7 +10,6 @@ import androidx.core.view.isVisible
 class MainActivity : AppCompatActivity() {
     var count = 0;
 
-
     override fun onSaveInstanceState(outState: Bundle?) {
         outState?.run {
             putString("counter", counter.text.toString())
@@ -21,7 +20,6 @@ class MainActivity : AppCompatActivity() {
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         counter.text = savedInstanceState?.getString("counter")
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +40,5 @@ class MainActivity : AppCompatActivity() {
             }
             counter.text = count.toString();
         }
-
-
     }
 }
