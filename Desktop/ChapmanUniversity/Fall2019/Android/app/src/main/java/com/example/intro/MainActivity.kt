@@ -1,5 +1,6 @@
 package com.example.intro
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,11 +9,17 @@ import android.view.View
 import androidx.core.view.isVisible
 
 class MainActivity : AppCompatActivity() {
-    var count = 0;
+    private var count: Int = 0
+    fun getStore() = getPreferences(Context.MODE_PRIVATE)
+
+    override fun onPause(){
+        super.onPause()
+        getStore().edit().putInt("counter", count).apply()
+    }
 
     override fun onSaveInstanceState(outState: Bundle?) {
         outState?.run {
-            putString("counter", counter.text.toString())
+            putString("counter", counter.text as String?)
         }
         super.onSaveInstanceState(outState)
     }
@@ -24,9 +31,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var tempCount = savedInstanceState?.getString("counter");
+
+        var username = intent.extras?.get("username")
+
+        MainUsername.text = username as CharSequence?
+
+        var tempCount = getStore().getInt("counter", 0)
         if (tempCount != null) {
-            count = tempCount.toInt()
+            count = tempCount
         }
         myButton.setOnClickListener{
             count = count + 1;
@@ -38,7 +50,7 @@ class MainActivity : AppCompatActivity() {
             {
                 image.visibility = View.VISIBLE
             }
-            counter.text = count.toString();
+            counter.text = count.toString()
         }
     }
 }
