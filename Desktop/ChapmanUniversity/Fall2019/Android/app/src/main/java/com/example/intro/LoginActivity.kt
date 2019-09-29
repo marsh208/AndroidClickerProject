@@ -6,6 +6,7 @@ import android.os.PersistableBundle
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
+import com.example.intro.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(){
@@ -28,7 +29,7 @@ class LoginActivity : AppCompatActivity(){
         })
 
         loginGoButton.setOnClickListener{
-            startActivity(Intent(this,MainActivity::class.java).apply { putExtra("username",loginUsernameField.text) })
+            startActivity(Intent(this, MainActivity::class.java).apply { putExtra("username",loginUsernameField.text) })
         }
 
 

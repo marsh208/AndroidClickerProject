@@ -10,22 +10,24 @@ import androidx.core.view.isVisible
 
 class MainActivity : AppCompatActivity() {
     private var count: Int = 0
+    private var userName: String = ""
+
     fun getStore() = getPreferences(Context.MODE_PRIVATE)
 
     override fun onPause(){
         super.onPause()
-        getStore().edit().putInt("counter", count).apply()
+        getStore().edit().putInt(getUserName(), count).apply()
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
         outState?.run {
-            putString("counter", counter.text as String?)
+            putString(getUserName(), counter.text as String?)
         }
         super.onSaveInstanceState(outState)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
-        counter.text = savedInstanceState?.getString("counter")
+        counter.text = savedInstanceState?.getString(getUserName())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,13 +35,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         var username = intent.extras?.get("username")
+        MainUsername.text = username.toString()
+        setUserName(username.toString())
 
-        MainUsername.text = username as CharSequence?
-
-        var tempCount = getStore().getInt("counter", 0)
+        var tempCount = getStore().getInt(userName, 0)
         if (tempCount != null) {
             count = tempCount
         }
+
         myButton.setOnClickListener{
             count = count + 1;
             if(image.isVisible)
@@ -52,5 +55,15 @@ class MainActivity : AppCompatActivity() {
             }
             counter.text = count.toString()
         }
+    }
+
+    private fun setUserName(username: String)
+    {
+        this.userName = username
+    }
+
+    private fun getUserName(): String
+    {
+        return this.userName
     }
 }
