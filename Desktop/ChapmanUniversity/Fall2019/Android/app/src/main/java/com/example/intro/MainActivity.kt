@@ -38,10 +38,13 @@ class MainActivity : AppCompatActivity() {
         MainUsername.text = username.toString()
         setUserName(username.toString())
 
+
         var tempCount = getStore().getInt(userName, 0)
-        if (tempCount != null) {
+        if (tempCount != 0) {
             count = tempCount
+            counter.text = count.toString()
         }
+
 
         myButton.setOnClickListener{
             count = count + 1;
