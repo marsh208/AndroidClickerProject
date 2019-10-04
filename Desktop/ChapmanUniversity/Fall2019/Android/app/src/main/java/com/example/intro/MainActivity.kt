@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity() {
             counter.text = count.toString()
         }
 
-
         myButton.setOnClickListener{
             count = count + 1;
             if(image.isVisible)
@@ -58,6 +57,13 @@ class MainActivity : AppCompatActivity() {
             }
             counter.text = count.toString()
         }
+
+        resetButton.setOnClickListener{
+            count = 0
+            counter.text = count.toString()
+        }
+
+
     }
 
     private fun setUserName(username: String)
