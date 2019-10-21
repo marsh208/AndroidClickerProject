@@ -1,4 +1,4 @@
-package com.example.intro
+package com.example.clickerandroidarchitecture
 
 import org.junit.Test
 
