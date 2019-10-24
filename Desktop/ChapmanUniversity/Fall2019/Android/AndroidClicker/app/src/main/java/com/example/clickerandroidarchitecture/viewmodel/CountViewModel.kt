@@ -11,4 +11,5 @@ class CountViewModel(application: Application) : AndroidViewModel(application){
     fun getUserCount(name: String) = repository.getUserCount(name)
 
     fun setUserCount(name: String, count: Long) = repository.setUserCount(name, count)
+
 }

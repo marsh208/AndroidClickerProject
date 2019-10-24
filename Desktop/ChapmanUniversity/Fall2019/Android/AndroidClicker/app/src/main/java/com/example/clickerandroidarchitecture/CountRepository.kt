@@ -27,6 +27,8 @@ class CountRepository(context: Context){
     fun getUserCount(name: String): LiveData<Long> =
         Transformations.map(liveSharedPreferences.listenMultiple(listOf(name), 0L)) { it[name] }
 
+
+
     companion object {
         private const val PREFS = "clickCounts"
     }
