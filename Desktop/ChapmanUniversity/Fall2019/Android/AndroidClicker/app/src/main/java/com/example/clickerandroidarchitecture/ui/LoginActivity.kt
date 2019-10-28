@@ -40,9 +40,24 @@ class LoginActivity : AppCompatActivity() {
 
         loginGoButton.setOnClickListener {
             // Get the checked radio button id from radio group
-            var id: Int = radioGroup.checkedRadioButtonId
+            var id: Int = -1
 
-            val radio: RadioButton = findViewById(id)
+            try {
+                id = radioGroup.checkedRadioButtonId
+            }
+            catch (e: Exception)
+            {
+                id = -1
+            }
+
+            //default
+            var radio: RadioButton = radio_dogs
+
+            if(id != -1) {
+                radio = findViewById(id)
+            }
+
+
 
             if (radio == radio_dogs) {
                 startActivity(Intent(this, MainActivity::class.java).apply {
@@ -51,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
                         loginUsernameField.text
                     )
                 })
-            } else if (radio == radio_cats) {
+            } else {
                 startActivity(Intent(this, CatActivity::class.java).apply {
                     putExtra(
                         "username",
@@ -59,7 +74,6 @@ class LoginActivity : AppCompatActivity() {
                     )
                 })
             }
-
 
         }
     }
