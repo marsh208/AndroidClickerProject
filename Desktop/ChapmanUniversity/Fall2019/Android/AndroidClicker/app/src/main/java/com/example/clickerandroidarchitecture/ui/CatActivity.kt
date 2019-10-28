@@ -1,6 +1,5 @@
 package com.example.clickerandroidarchitecture.ui
 
-
 import com.example.clickerandroidarchitecture.viewmodel.CountViewModel
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
@@ -13,19 +12,17 @@ import java.util.*
 import android.graphics.drawable.RotateDrawable
 import kotlin.random.Random.Default.nextInt
 
-class MainActivity : AppCompatActivity() {
-
+class CatActivity : AppCompatActivity() {
     private lateinit var countViewModel: CountViewModel
     private var count: Long = 0;
     private fun getUsername() = intent.extras?.get("username").toString().toLowerCase(Locale.US)
-    private var pics = arrayOf(R.mipmap.bacon, R.mipmap.french, R.mipmap.fluff, R.mipmap.boxer, R.mipmap.chihuaua, R.mipmap.husky)
+    private var pics = arrayOf(R.mipmap.cat1, R.mipmap.cat2, R.mipmap.cat3, R.mipmap.cat4, R.mipmap.cat5, R.mipmap.cat6)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_cat)
         image.setImageResource(pics[0])
-
 
         welcomeUser.text = (welcomeUser.text).toString() + getUsername()
 
@@ -51,4 +48,6 @@ class MainActivity : AppCompatActivity() {
         counter.text = count.toString()
     }
 }
+
+
 

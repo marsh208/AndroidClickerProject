@@ -4,6 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.example.clickerandroidarchitecture.R
 import kotlinx.android.synthetic.main.activity_login.*
@@ -27,8 +30,37 @@ class LoginActivity : AppCompatActivity() {
                 //unused
             }
         })
-        loginGoButton.setOnClickListener{
-            startActivity(Intent(this, MainActivity::class.java).apply { putExtra("username", loginUsernameField.text)})
+
+
+        radioGroup.setOnCheckedChangeListener(
+            RadioGroup.OnCheckedChangeListener { group, checkedId ->
+                val radio: RadioButton = findViewById(checkedId)
+        })
+
+
+        loginGoButton.setOnClickListener {
+            // Get the checked radio button id from radio group
+            var id: Int = radioGroup.checkedRadioButtonId
+
+            val radio: RadioButton = findViewById(id)
+
+            if (radio == radio_dogs) {
+                startActivity(Intent(this, MainActivity::class.java).apply {
+                    putExtra(
+                        "username",
+                        loginUsernameField.text
+                    )
+                })
+            } else if (radio == radio_cats) {
+                startActivity(Intent(this, CatActivity::class.java).apply {
+                    putExtra(
+                        "username",
+                        loginUsernameField.text
+                    )
+                })
+            }
+
+
         }
     }
 
