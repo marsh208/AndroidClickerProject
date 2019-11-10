@@ -32,48 +32,15 @@ class LoginActivity : AppCompatActivity() {
         })
 
 
-        radioGroup.setOnCheckedChangeListener(
-            RadioGroup.OnCheckedChangeListener { group, checkedId ->
-                val radio: RadioButton = findViewById(checkedId)
-        })
-
 
         loginGoButton.setOnClickListener {
-            // Get the checked radio button id from radio group
-            var id: Int = -1
+            startActivity(Intent(this, MainActivity::class.java).apply {
+                putExtra(
+                    "username",
+                    loginUsernameField.text
+                )
+            })
 
-            try {
-                id = radioGroup.checkedRadioButtonId
-            }
-            catch (e: Exception)
-            {
-                id = -1
-            }
-
-            //default
-            var radio: RadioButton = radio_dogs
-
-            if(id != -1) {
-                radio = findViewById(id)
-            }
-
-
-
-            if (radio == radio_dogs) {
-                startActivity(Intent(this, MainActivity::class.java).apply {
-                    putExtra(
-                        "username",
-                        loginUsernameField.text
-                    )
-                })
-            } else {
-                startActivity(Intent(this, CatActivity::class.java).apply {
-                    putExtra(
-                        "username",
-                        loginUsernameField.text
-                    )
-                })
-            }
 
         }
     }

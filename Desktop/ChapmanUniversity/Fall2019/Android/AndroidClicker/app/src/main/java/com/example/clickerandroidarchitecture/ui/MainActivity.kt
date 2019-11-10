@@ -11,6 +11,17 @@ import kotlinx.android.synthetic.main.activity_main.*
 import com.example.clickerandroidarchitecture.R
 import java.util.*
 import android.graphics.drawable.RotateDrawable
+import android.provider.MediaStore
+import com.facebook.drawee.backends.pipeline.Fresco
+import com.giphy.sdk.core.models.Media
+import com.giphy.sdk.core.models.enums.RenditionType
+import com.giphy.sdk.ui.GPHContentType
+import com.giphy.sdk.ui.GPHSettings
+import com.giphy.sdk.ui.GiphyCoreUI
+import com.giphy.sdk.ui.themes.GridType
+import com.giphy.sdk.ui.themes.LightTheme
+import com.giphy.sdk.ui.views.GPHMediaView
+import com.giphy.sdk.ui.views.GiphyDialogFragment
 import kotlin.random.Random.Default.nextInt
 
 class MainActivity : AppCompatActivity() {
@@ -23,12 +34,31 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        image.setImageResource(pics[0])
+        val context = this
 
+        //giphy
+        GiphyCoreUI.configure(this, "YdwxPNt3JQbgS8rKBDs3hawt4BhmmwHW")
+        var settings = GPHSettings(gridType = GridType.waterfall, theme = LightTheme, dimBackground = true)
+        val gifsDialog = GiphyDialogFragment.newInstance(settings)
+        settings.mediaTypeConfig = arrayOf(GPHContentType.gif)
+        gifsDialog.show(supportFragmentManager, "gifs_dialog")
+
+
+        gifsDialog.gifSelectionListener = object: GiphyDialogFragment.GifSelectionListener {
+            override fun onGifSelected(media: Media) {
+
+                image.setMedia(media, RenditionType.original)
+            }
+
+            override fun onDismissed() {
+                //Your user dismissed the dialog without selecting a GIF
+            }
+        }
+
+        //set only after gif has been selected
+        setContentView(R.layout.activity_main)
 
         welcomeUser.text = (welcomeUser.text).toString() + getUsername()
-
 
         countViewModel = ViewModelProviders.of(this).get(CountViewModel::class.java)
         countViewModel.getUserCount(getUsername()).observe(this,
@@ -36,7 +66,6 @@ class MainActivity : AppCompatActivity() {
 
         myButton.setOnClickListener {
             countViewModel.setUserCount(getUsername(), count + 1)
-            image.setImageResource(pics[nextInt(0,5)])
         }
 
         resetButton.setOnClickListener{
