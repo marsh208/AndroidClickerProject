@@ -14,6 +14,7 @@ import android.graphics.drawable.RotateDrawable
 import android.provider.MediaStore
 import com.bumptech.glide.Glide
 import com.example.clickerandroidarchitecture.Gif
+import com.example.clickerandroidarchitecture.MyAlarmManager
 import com.example.clickerandroidarchitecture.viewmodel.GifViewModel
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.giphy.sdk.core.models.Media
@@ -40,7 +41,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val context = this
         setContentView(R.layout.activity_main)
 
         //giphy
@@ -61,6 +61,10 @@ class MainActivity : AppCompatActivity() {
 //                //Your user dismissed the dialog without selecting a GIF
 //            }
 //        }
+
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.SECOND, 10)
+        MyAlarmManager.setAlarm(applicationContext, calendar.timeInMillis, "Keep on clicking!")
 
 
 
@@ -98,7 +102,9 @@ class MainActivity : AppCompatActivity() {
         Glide.with(this)
             .load(gif.url)
             .into(image)
-
     }
+
+
+
 }
 
